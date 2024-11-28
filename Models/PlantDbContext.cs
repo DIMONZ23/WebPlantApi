@@ -73,7 +73,7 @@ public partial class PlantDbContext : DbContext
         });
 
         modelBuilder.Entity<User>(entity =>
-        {
+{
             entity.HasKey(e => e.Id).HasName("users_pkey");
 
             entity.ToTable("users");
@@ -90,7 +90,7 @@ public partial class PlantDbContext : DbContext
         });
 
         modelBuilder.Entity<Usercontact>(entity =>
-        {
+    {
             entity.HasKey(e => e.Id).HasName("usercontacts_pkey");
 
             entity.ToTable("usercontacts");
