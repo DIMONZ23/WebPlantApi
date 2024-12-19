@@ -72,14 +72,21 @@ namespace WebPlantApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Plant>> PostPlant(Plant plant)
         {
-            // Không cần id và createdat trong body, tự động tạo giá trị cho id
-            plant.Createdat = DateTime.UtcNow; // Gán CreatedAt khi tạo cây mới
+            // Kiểm tra ID tối đa hiện tại trong cơ sở dữ liệu và gán ID cho cây mới
+            int nextId = _context.Plants.Any() ? _context.Plants.Max(p => p.Id) + 1 : 1;
+            plant.Id = nextId; // Gán ID mới cho cây
+
+            // Gán CreatedAt khi tạo cây mới
+            plant.Createdat = DateTime.UtcNow;
+
+            // Thêm cây vào cơ sở dữ liệu
             _context.Plants.Add(plant);
             await _context.SaveChangesAsync();
 
-            // Trả về thông tin cây vừa tạo, bao gồm id mới
+            // Trả về thông tin cây vừa tạo, bao gồm ID mới
             return CreatedAtAction("GetPlant", new { id = plant.Id }, plant);
         }
+
 
         // DELETE: api/plants/5
         [HttpDelete("{id}")]
