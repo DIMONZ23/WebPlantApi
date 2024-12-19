@@ -7,7 +7,7 @@ namespace WebPlantApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]  // Yêu cầu xác thực người dùng bằng token JWT
+    //[Authorize]  // Yêu cầu xác thực người dùng bằng token JWT
     public class PlantsController : ControllerBase
     {
         private readonly PlantDbContext _context;

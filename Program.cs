@@ -43,6 +43,17 @@ namespace WebPlantApi
                     };
                 });
 
+            // Cấu hình CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
 
             // Cấu hình pipeline HTTP request.
@@ -55,6 +66,10 @@ namespace WebPlantApi
             app.UseHttpsRedirection();
             app.UseAuthentication(); // Đảm bảo gọi UseAuthentication trước UseAuthorization
             app.UseAuthorization();
+
+            // Sử dụng CORS với tên policy "AllowAll"
+            app.UseCors("AllowAll");
+
             app.MapControllers();
 
             app.Run();
