@@ -7,7 +7,7 @@ namespace WebPlantApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UsercontactsController : ControllerBase
     {
         private readonly PlantDbContext _context;
@@ -53,11 +53,13 @@ namespace WebPlantApi.Controllers
             }
 
             // Cập nhật thông tin của user contact
-            existingUsercontact.Contacttype = usercontact.Contacttype;
             existingUsercontact.Contactvalue = usercontact.Contactvalue;
             existingUsercontact.Isprimary = usercontact.Isprimary;
+            existingUsercontact.Username = usercontact.Username;
+            existingUsercontact.Usercomment = usercontact.Usercomment;
+
             // Không cập nhật Createdat, vì đây là thông tin tự động tạo khi tạo mới
-            existingUsercontact.Createdat = usercontact.Createdat;
+            // Createdat sẽ giữ nguyên giá trị hiện có
 
             // Lưu thay đổi vào cơ sở dữ liệu
             await _context.SaveChangesAsync();
